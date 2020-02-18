@@ -6,9 +6,10 @@ const outputFolder = "data/";
 
 const nameList = require("./names/person-names");
 const animalList = require("./names/animals");
-const prefix = ["", "bad", "happy", "hungry", "ultra", "hyper", "inter", "up"];
+const metalList = require("./names/metals");
+
+const prefix = []; //["", "bad", "happy", "hungry", "ultra", "hyper", "inter", "up"];
 const suffix = [
-  "",
   "ly",
   "io",
   "s",
@@ -93,8 +94,14 @@ function checkHosts(filePrefix, listOfHostnames) {
   });
 }
 
-//checkHosts("domains-names-", domainList(nameList).map(x => x + ".com"););
+/*
+checkHosts(
+  "domains-names",
+  domainList(nameList).map(x => x + ".com")
+);
 checkHosts(
   "animals",
   domainList(animalList).map(x => x.toLowerCase() + ".com")
 );
+*/
+checkHosts("metal", metalList);
