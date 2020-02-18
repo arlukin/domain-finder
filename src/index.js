@@ -6,24 +6,56 @@ const outputFolder = "data/";
 
 const nameList = require("./names/person-names");
 const animalList = require("./names/animals");
-const prefix = ["", "red", "blue", "yellow", "4"];
-const suffix = ["", "ly", "io", "s", "er", "ers", "ton"];
-process.stdout.write(JSON.stringify(animalList));
-process.exit();
+const prefix = ["", "bad", "happy", "hungry", "ultra", "hyper", "inter", "up"];
+const suffix = [
+  "",
+  "ly",
+  "io",
+  "s",
+  "er",
+  "ers",
+  "ton",
+  "ness",
+  "age",
+  "dom",
+  "hood",
+  "ry",
+  "ship",
+  "full",
+  "wise",
+  "joy"
+];
+//process.stdout.write(JSON.stringify(animalList));
+//process.exit();
 
 function domainList(result) {
   const newResult = [];
   result.forEach(resValue => {
     prefix.forEach(prefixValue => {
-      suffix.forEach(suffixValue => {
-        newResult.push(prefixValue + resValue + suffixValue);
-      });
+      newResult.push(prefixValue + resValue);
+    });
+    suffix.forEach(suffixValue => {
+      newResult.push(resValue + suffixValue);
     });
   });
-  return newResult.map(x => x + ".com"); // .slice(0, 10);
+  return newResult;
 }
 
 function hostnameExists(hostname) {
+  return new Promise(resolve => {
+    dns.resolveNs(hostname, nsError => {
+      const hasNsServer = !nsError;
+      process.stdout.write(".");
+      resolve({
+        hostname,
+        ns: hasNsServer,
+        whois: null
+      });
+    });
+  });
+}
+
+function hostnameExistsWhois(hostname) {
   return new Promise(resolve => {
     dns.resolveNs(hostname, nsError => {
       const hasNsServer = !nsError;
@@ -61,5 +93,8 @@ function checkHosts(filePrefix, listOfHostnames) {
   });
 }
 
-//checkHosts("domains-names-", domainList(nameList));
-checkHosts("test-domains-animals-", domainList(animalList).slice(0, 10));
+//checkHosts("domains-names-", domainList(nameList).map(x => x + ".com"););
+checkHosts(
+  "animals",
+  domainList(animalList).map(x => x.toLowerCase() + ".com")
+);
