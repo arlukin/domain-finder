@@ -4,9 +4,13 @@ const fs = require("fs");
 
 const outputFolder = "data/";
 
-const nameList = require("./names/person-names");
 const animalList = require("./names/animals");
+const famousList = require("./names/famous");
+const firstNameList = require("./names/firstNames");
+const lastNameList = require("./names/lastNames");
 const metalList = require("./names/metals");
+const nickList = require("./names/nicks");
+const selectedList = require("./names/selectedNames");
 
 const prefix = []; //["", "bad", "happy", "hungry", "ultra", "hyper", "inter", "up"];
 const suffix = [
@@ -77,9 +81,10 @@ function hostnameExistsWhois(hostname) {
   });
 }
 
-function checkHosts(filePrefix, listOfHostnames) {
+function checkHosts(filePrefix, listOfNames) {
+  const listOfDomains = listOfNames.map(x => x.toLowerCase() + ".com");
   process.stdout.write("Check DNS\n");
-  Promise.all(listOfHostnames.map(hostnameExists)).then(listOfStatuses => {
+  Promise.all(listOfDomains.map(hostnameExists)).then(listOfStatuses => {
     const unFilteredFileName = outputFolder + filePrefix + ".json";
     process.stdout.write(`\nWrite to file ${unFilteredFileName}\n`);
     fs.writeFileSync(unFilteredFileName, JSON.stringify(listOfStatuses));
@@ -94,14 +99,21 @@ function checkHosts(filePrefix, listOfHostnames) {
   });
 }
 
-/*
-checkHosts(
-  "domains-names",
-  domainList(nameList).map(x => x + ".com")
-);
-checkHosts(
-  "animals",
-  domainList(animalList).map(x => x.toLowerCase() + ".com")
-);
-*/
-checkHosts("metal", metalList);
+function firstAndLastNameList() {
+  const newResult = [];
+  firstNameList.forEach(firstName => {
+    lastNameList.forEach(lastName => {
+      newResult.push(firstName + lastName);
+    });
+  });
+  return newResult;
+}
+
+//checkHosts("domains-names", domainList(nameList));
+//checkHosts("animals", domainList(animalList));
+//checkHosts("metal", metalList);
+//checkHosts("nicks", nickList);
+//checkHosts("firstLastName", firstAndLastNameList());
+//checkHosts("famous", famousList);
+checkHosts("selected", selectedList);
+
