@@ -109,11 +109,27 @@ function firstAndLastNameList() {
   return newResult;
 }
 
+function frankNamesList() {
+  const newResult = [];
+  lastNameList.forEach(name => {
+    newResult.push("Frank" + name);
+  });
+
+  animalList.forEach(name => {
+    newResult.push("Frank" + name);
+  });
+
+  nickList.forEach(name => {
+    newResult.push("Frank" + name);
+  });
+
+  return newResult;
+}
 //checkHosts("domains-names", domainList(nameList));
 //checkHosts("animals", domainList(animalList));
 //checkHosts("metal", metalList);
 //checkHosts("nicks", nickList);
 //checkHosts("firstLastName", firstAndLastNameList());
+checkHosts("frankNames", frankNamesList());
 //checkHosts("famous", famousList);
-checkHosts("selected", selectedList);
-
+//checkHosts("selected", selectedList);

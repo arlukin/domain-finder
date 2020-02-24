@@ -502,9 +502,10 @@ module.exports = [
   "Paxton",
   "Payton",
   "Penn",
-  "Perry",   "Piper",
+  "Perry",
+  "Piper",
   "Powell",
-   
+
   "Ray",
   "Read",
   "Red",
@@ -539,7 +540,7 @@ module.exports = [
   "Sterling",
   "Storm",
   "Sydney",
-   "Taylor",
+  "Taylor",
   "Theron",
   "Thomas",
   "Tillmann",
